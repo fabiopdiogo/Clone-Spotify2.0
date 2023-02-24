@@ -12,4 +12,29 @@ export default NextAuth ({
     }),
     // ...add more providers here
   ],
+
+  secret: process.env.JWT_SECRET,
+  pages:{
+    signIn:'/login'
+  },
+  callbacks:{
+    async jwt ({ token, account, user}){
+
+      //initial sing in
+      if(account && user) {
+        return{
+          ...token,
+          accessToken: account.access_token,
+          refreshToken: account.refresh_token,
+          username: account.providerAccountId,
+          accessTokenExpires: account.expires_at * 1000, // handling expiry tunes in milliseconds hence
+        }
+      }
+
+      if (Date.now() < token.accessTokenExpires){
+        return token;
+      }
+    }
+  }
+
 })
