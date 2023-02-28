@@ -10,19 +10,23 @@ import {
 import { signOut, useSession } from "next-auth/react"
 import { useEffect, useState} from "react"
 import useSpotify from "../hooks/useSpotify";
-import spotifyApi from "../lib/spotify";
 
 function Sidebar() {
+  const spotifyApi = useSpotify();
   const { data: session, status } = useSession();
-  const [playlist, setPlaylist] = useState([]);
+  const [playlists, setPlaylists ] = useState([]);
 
-  useEffect(() => {
-    if(spotifyApi.getAccessToken ()){
+  useEffect(() => {    
+    if(spotifyApi.getAccessToken()){
       spotifyApi.getUserPlaylists().then((data) =>{
-        setPlaylists(data.items)
-      })
+        setPlaylists(data.body.items);
+        console.log(data.body.items);
+      });
     }
-  }, [session, spotifyApi])
+  }, [session, spotifyApi]);
+
+  console.log(playlists);
+
 
   return (
     <div className="text-gray-500 p-5 text-sm border-r
@@ -30,7 +34,8 @@ function Sidebar() {
       <div className="space-y-4">   
         <button
           className="flex items-center space-x-2 
-          hover: text-white" onClick={() => signOut()}
+          hover: text-white" 
+          onClick={() => signOut()}
         >
           <p>Log out</p>  
         </button>  
