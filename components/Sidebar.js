@@ -8,12 +8,21 @@ import {
 } from "@heroicons/react/outline"
 
 import { signOut, useSession } from "next-auth/react"
-import { consumers } from "stream"
+import { useEffect, useState} from "react"
+import useSpotify from "../hooks/useSpotify";
+import spotifyApi from "../lib/spotify";
 
 function Sidebar() {
-  const { data: session, status} = useSession();
+  const { data: session, status } = useSession();
+  const [playlist, setPlaylist] = useState([]);
 
-  console.log(session)
+  useEffect(() => {
+    if(spotifyApi.getAccessToken ()){
+      spotifyApi.getUserPlaylists().then((data) =>{
+        setPlaylists(data.items)
+      })
+    }
+  }, [session, spotifyApi])
 
   return (
     <div className="text-gray-500 p-5 text-sm border-r
