@@ -36,13 +36,6 @@ function Sidebar() {
      border-gray-900 overflow-y-scroll scrollbar-hide h-screen
      sm:max-w-[12rem] lg:max-w-[15rem] hidden md:inline-flex" >
       <div className="space-y-4">   
-        <button
-          className="flex items-center space-x-2 
-          hover: text-white" 
-          onClick={() => signOut()}
-        >
-          <p>Log out</p>  
-        </button>  
         <button className="flex items-center space-x-2 hover:text-white">
           <HomeIcon className="h-5 w-5"/>
           <p>Home</p>
@@ -63,8 +56,8 @@ function Sidebar() {
           <p>Liked Songs</p>
         </button>
         <button className="flex items-center space-x-2 hover:text-white">
-          <LibraryIcon className="h-5 w-5"/>
-          <p>Your Library</p>
+          <PlusCircleIcon className="h-5 w-5"/>
+          <p>Create Playlists</p>
         </button>
         <button className="flex items-center space-x-2 hover:text-white">
           <RssIcon className="h-5 w-5"/>
