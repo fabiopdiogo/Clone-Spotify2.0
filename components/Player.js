@@ -1,3 +1,16 @@
+import {
+  HeartIcon,
+  VolumeUpIcon as VolumeDownIcon,
+} from "@heroicons/react/outline";
+import {
+  FastFowardIcon,
+  PauseIcon,
+  PlayIcon,
+  ReplyIcon,
+  RewindIcon,
+  VolumeUpIcon,
+  SwitchHorizontalIcon,
+} from "@heroicons/react/solid";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -6,6 +19,7 @@ import useSongInfo from "../hooks/useSongInfo";
 import useSpotify from "../hooks/useSpotify"
 
 function Player() {  
+  
   const spotifyApi = useSpotify();
   const { data: session, status } = useSession();
   const [currentTrackId, setCurrentIdTrack] = useRecoilState(currentTrackIdState);    
@@ -36,15 +50,36 @@ function Player() {
   }, [currentTrackIdState, spotifyApi, session]);
 
   return (
-    <div>
+    <div className="h-24 bg-gradient-to-b from-black to-gray-900 text-white grid grid-cols-3
+    text-xs md:text-base px-2 md:px-8">
       {/*Left */}
       <div>
-        <img 
-          className="hidden md:inline h-10 w-10"
-          src={songInfo?.album.images?.[0]?.url}
-          alt=""
-       />
+          <img 
+            className="hidden md:inline h-10 w-10"
+            src={songInfo?.album.images?.[0]?.url}
+            alt=""
+        />
+        <div>
+            <h3>{songInfo?.name}</h3>
+            <p>{songInfo?.artists?.[0]?.name}</p>
+        </div>
       </div>
+      
+      { /* Center */}
+      <div className="flex items-center justify-evenly">
+        <SwitchHorizontalIcon className="button"></SwitchHorizontalIcon>
+        <RewindIcon className="button" />
+
+        { isPlaying? (
+          <PauseIcon className="button w-10 h-10"  />
+        ) : (
+          <PlayIcon className="button w-10 h-10"/>
+        )}
+
+        <FastFowardIcon className="button" />  
+        <ReplyIcon className="button" />
+      </div>
+      
     </div>
   )
 }
