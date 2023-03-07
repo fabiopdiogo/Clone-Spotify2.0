@@ -6,12 +6,12 @@ import useSpotify from "./useSpotify"
 
 function useSongInfo() {
   const spotifyApi = useSpotify();
-  const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState);    
+  const [currentIdTrack, setCurrentTrackId] = useRecoilState(currentTrackIdState);
   const [songInfo, setSongInfo] = useState(null);
 
   useEffect(() => {
     const fetchSongInfo = async () =>{
-      if(currentIdTrack){
+      if (currentIdTrack){
         const trackInfo = await fetch (
           `https://api.spotify.com/v1/tracks/${currentIdTrack}`,
           {

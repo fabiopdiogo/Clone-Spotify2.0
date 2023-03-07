@@ -8,7 +8,7 @@ import useSpotify from "../hooks/useSpotify"
 function Player() {  
   const spotifyApi = useSpotify();
   const { data: session, status } = useSession();
-  const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState);    
+  const [currentTrackId, setCurrentIdTrack] = useRecoilState(currentTrackIdState);    
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
   const [volume, setVolume] = useState(50);
 
@@ -18,7 +18,7 @@ function Player() {
     if(!songInfo){
       spotifyApi.getMyCurrentPlayingTrack().then((data) => {
         console.log("Now playing: ", data.body?.item);
-        setCurrentTrackId(data.body?.item?.id);
+        setCurrentIdTrack(data.body?.item?.id);
 
         spotifyApi.getMyCurrentPlaybackState().then((data) => {
           setIsPlaying(data.body?.is_playing);
