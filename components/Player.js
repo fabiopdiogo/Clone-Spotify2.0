@@ -4,7 +4,7 @@ import {
 } from "@heroicons/react/outline";
 
 import {
-  FastFowardIcon,
+  FastForwardIcon,
   PauseIcon,
   PlayIcon,
   ReplyIcon,
@@ -73,9 +73,8 @@ function Player() {
   const debouncedAdjustVolume = useCallback(
     debounce((volume) => {
       spotifyApi.setVolume(volume);
-    }, 500),
+    }, 100),
     []
-
   );
 
   return (
@@ -105,7 +104,7 @@ function Player() {
           <PlayIcon onClick={handlePlayPause} className="button w-10 h-10"/>
         )}
 
-        {/*<FastFowardIcon className="button" />*/}  
+        <FastForwardIcon className="button" />
         <ReplyIcon className="button" />
       </div>
 

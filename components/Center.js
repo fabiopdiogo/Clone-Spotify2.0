@@ -60,7 +60,7 @@ function Center (){
       >
         <img 
           className="h-44 w-44 shadow-2xl" 
-          src={playlist?.image?.[0]?.url}
+          src={playlist?.images?.[0]?.url}
           alt="" 
         /> 
         <div>
